@@ -55,7 +55,7 @@ const handleSearchChange = (searched) =>{
   console.log(searched)
   setSearch(searched)
   //Métodos  que filtran la información
-  results = persons.filter((person)=> person.name.includes(searched))
+  results = persons.filter((person)=> person.name.toLowerCase().split(" ").join("").indexOf(searched.toLowerCase()) !== -1)
   console.log(results)
   //Se asigna el valor al estado Filtrados
   setFiltrados(results)
