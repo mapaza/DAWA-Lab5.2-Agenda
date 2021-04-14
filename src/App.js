@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom'
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
@@ -34,24 +37,23 @@ const handleClick = () =>{
 }
 }
 //Funciones de Evento que capturan el valor ingresado en input
-const handleNameChange = (event) =>{
-    var nuevo_contacto = event.target.value
+const handleNameChange = (nuevo_contacto) =>{
     console.log(nuevo_contacto)
     setNewName(nuevo_contacto)
 }
-const handlePhoneChange = (event) =>{
-  var nuevo_numero = event.target.value
+const handlePhoneChange = (nuevo_numero) =>{
   console.log(nuevo_numero)
   setNewPhone(nuevo_numero)
 }
+
 var results = [{}]
-const handleSearchChange = (event) =>{
-  var searched = event.target.value
+const handleSearchChange = (searched) =>{
   console.log(searched)
   setSearch(searched)
   //Métodos  que filtran la información
   results = persons.filter((person)=> person.name.includes(searched))
   console.log(results)
+  //Se asigna el valor al estado Filtrados
   setFiltrados(results)
 }
 
@@ -59,35 +61,14 @@ const handleSearchChange = (event) =>{
   return (
     <div style={{padding:20, backgroundColor:'beige'}}>
       <h2>Phonebook</h2>
-        <div style={{padding:20,marginBottom:20, backgroundColor:'lightskyblue', width:300}}>
-          Filter shown with <input onChange={handleSearchChange}/>
-        </div>
-        <div>
-          Name: <input onChange={handleNameChange}/>
-        </div>
-        <div>
-          Number: <input type="number" onChange={handlePhoneChange}/>
-        </div>
-        <div>
-          <button onClick={handleClick}>add</button>
-        </div>
-      
+        <Filter onSearchChange={handleSearchChange}/>
+
+      <h3>Add New Contact</h3>
+      <PersonForm onNameChange={handleNameChange} onClick={handleClick}
+      onPhoneChange={handlePhoneChange}/>
+
       <h2>Numbers</h2>
-      { search ?
-        filtrados.map((person)=>
-        <ul key={person.name}>
-          <li><b>Name:</b> {person.name}</li>
-          <li><b>Number:</b> {person.phone}</li> 
-        </ul>
-        )
-        :
-        persons.map((person)=>
-        <ul key={person.name}>
-          <li><b>Name:</b> {person.name}</li>
-          <li><b>Number:</b> {person.phone}</li> 
-        </ul>
-        )
-      }
+      <Persons search={search} filtrados={filtrados} persons={persons}/>
       
     </div>
   )
