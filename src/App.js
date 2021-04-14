@@ -10,13 +10,24 @@ const App = () => {
 const handleClick = () =>{
     console.log("Click en el Boton")
     console.log(newName)
-    const nuevoNombre = {
-      name:newName
+    //Array que almacena los nombres y valores ya ingresados
+    var nombres=[]
+    for(let i=0; i<persons.length;i++){
+        nombres.push(persons[i].name)
     }
-    setPersons([
-      ...persons,
-      nuevoNombre
-    ])
+    //Método que valida newName no se incluya en nombres
+    console.log(nombres)
+      if(nombres.includes(newName)){
+        alert(`${newName} is already added to phonebook`)
+      }else{
+      const nuevoNombre = {
+        name:newName
+      }
+      setPersons([
+        ...persons,
+        nuevoNombre
+      ])
+}
 }
 const handleChange = (event) =>{
     var nuevo_contacto = event.target.value
