@@ -13,7 +13,9 @@ const App = () => {
   const [ search, setSearch ] = useState('')
   const [ filtrados, setFiltrados ] = useState([{}])
 
-const handleClick = () =>{
+const handleSubmit = (event) =>{
+    //Evita recargar la pagina
+    event.preventDefault()
     console.log("Click en el Boton")
     console.log(newName)
     //Array que almacena los nombres y valores ya ingresados
@@ -34,6 +36,8 @@ const handleClick = () =>{
         ...persons,
         nuevoNombre
       ])
+      setNewName('')
+      setNewPhone('')
 }
 }
 //Funciones de Evento que capturan el valor ingresado en input
@@ -64,8 +68,13 @@ const handleSearchChange = (searched) =>{
         <Filter onSearchChange={handleSearchChange}/>
 
       <h3>Add New Contact</h3>
-      <PersonForm onNameChange={handleNameChange} onClick={handleClick}
-      onPhoneChange={handlePhoneChange}/>
+      <PersonForm 
+      newName={newName} 
+      newPhone={newPhone} 
+      onNameChange={handleNameChange} 
+      onPhoneChange={handlePhoneChange}
+      onClick={handleSubmit}
+      />
 
       <h2>Numbers</h2>
       <Persons search={search} filtrados={filtrados} persons={persons}/>

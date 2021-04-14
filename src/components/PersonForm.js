@@ -10,13 +10,15 @@ const handlePhoneChange = (event) =>{
 	return (
         <div>
             <div>
-                Name: <input onChange={handleNameChange}/>
+                Name: <input value={props.newName} onChange={handleNameChange}/>
             </div>
             <div>
-                Number: <input type="number" onChange={handlePhoneChange}/>
+                Number: <input value={props.newPhone}  type="number" onChange={handlePhoneChange}/>
             </div>
             <div>
-                <button onClick={props.onClick}>add</button>
+                <button 
+                style={{backgroundColor:'coral', borderRadius:10,marginTop:20, padding:10}}
+                onClick={props.onClick}>Add</button>
             </div>
         </div>
 	)
