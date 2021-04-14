@@ -7,6 +7,8 @@ const App = () => {
   ]) 
   const [ newName, setNewName ] = useState('')
   const [ newPhone, setNewPhone ] = useState('')
+  const [ search, setSearch ] = useState('')
+  const [ filtrados, setFiltrados ] = useState([{}])
 
 const handleClick = () =>{
     console.log("Click en el Boton")
@@ -42,11 +44,24 @@ const handlePhoneChange = (event) =>{
   console.log(nuevo_numero)
   setNewPhone(nuevo_numero)
 }
+var results = [{}]
+const handleSearchChange = (event) =>{
+  var searched = event.target.value
+  console.log(searched)
+  setSearch(searched)
+  //Métodos  que filtran la información
+  results = persons.filter((person)=> person.name.includes(searched))
+  console.log(results)
+  setFiltrados(results)
+}
+
 
   return (
     <div style={{padding:20, backgroundColor:'beige'}}>
       <h2>Phonebook</h2>
-     
+        <div style={{padding:20,marginBottom:20, backgroundColor:'lightskyblue', width:300}}>
+          Filter shown with <input onChange={handleSearchChange}/>
+        </div>
         <div>
           Name: <input onChange={handleNameChange}/>
         </div>
@@ -58,7 +73,14 @@ const handlePhoneChange = (event) =>{
         </div>
       
       <h2>Numbers</h2>
-      {
+      { search ?
+        filtrados.map((person)=>
+        <ul key={person.name}>
+          <li><b>Name:</b> {person.name}</li>
+          <li><b>Number:</b> {person.phone}</li> 
+        </ul>
+        )
+        :
         persons.map((person)=>
         <ul key={person.name}>
           <li><b>Name:</b> {person.name}</li>
@@ -66,6 +88,7 @@ const handlePhoneChange = (event) =>{
         </ul>
         )
       }
+      
     </div>
   )
 }
