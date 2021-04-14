@@ -3,9 +3,10 @@ import { __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED } from 'react-dom'
 
 const App = () => {
   const [ persons, setPersons ] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas', phone: 952612302 }
   ]) 
   const [ newName, setNewName ] = useState('')
+  const [ newPhone, setNewPhone ] = useState('')
 
 const handleClick = () =>{
     console.log("Click en el Boton")
@@ -21,7 +22,8 @@ const handleClick = () =>{
         alert(`${newName} is already added to phonebook`)
       }else{
       const nuevoNombre = {
-        name:newName
+        name:newName,
+        phone:newPhone
       }
       setPersons([
         ...persons,
@@ -29,18 +31,27 @@ const handleClick = () =>{
       ])
 }
 }
-const handleChange = (event) =>{
+//Funciones de Evento que capturan el valor ingresado en input
+const handleNameChange = (event) =>{
     var nuevo_contacto = event.target.value
     console.log(nuevo_contacto)
     setNewName(nuevo_contacto)
 }
+const handlePhoneChange = (event) =>{
+  var nuevo_numero = event.target.value
+  console.log(nuevo_numero)
+  setNewPhone(nuevo_numero)
+}
 
   return (
-    <div style={{margin:20}}>
+    <div style={{padding:20, backgroundColor:'beige'}}>
       <h2>Phonebook</h2>
      
         <div>
-          name: <input onChange={handleChange}/>
+          Name: <input onChange={handleNameChange}/>
+        </div>
+        <div>
+          Number: <input type="number" onChange={handlePhoneChange}/>
         </div>
         <div>
           <button onClick={handleClick}>add</button>
@@ -49,7 +60,10 @@ const handleChange = (event) =>{
       <h2>Numbers</h2>
       {
         persons.map((person)=>
-        <p key={person.name}>{person.name}</p>
+        <ul key={person.name}>
+          <li><b>Name:</b> {person.name}</li>
+          <li><b>Number:</b> {person.phone}</li> 
+        </ul>
         )
       }
     </div>
