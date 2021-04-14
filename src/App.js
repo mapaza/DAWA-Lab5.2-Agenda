@@ -38,7 +38,7 @@ const handleChange = (event) =>{
       <h2>Numbers</h2>
       {
         persons.map((person)=>
-        <p>{person.name}</p>
+        <p key={person.name}>{person.name}</p>
         )
       }
     </div>
